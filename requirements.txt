@@ -2,3 +2,6 @@ pandas
 scikit-learn
 lightgbm
 numpy
+prometheus_client
+matplotlib
+fpdf

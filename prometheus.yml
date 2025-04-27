@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 5s  # Her 5 saniyede bir veri çeksin
+
+scrape_configs:
+  - job_name: 'retail-demand-model'
+    static_configs:
+      - targets: ['host.docker.internal:8000']
