@@ -17,4 +17,4 @@ output = pd.DataFrame({
 
 output.to_csv("predictions.csv", index=False)
 
-print("Tahminler başarıyla 'predictions.csv' dosyasına kaydedildi.")
+print("Tahminler başarıyla 'predictions.csv' dosyasına kaydedildi. 🚀 (Güncellendi)")
