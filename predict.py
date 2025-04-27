@@ -5,6 +5,9 @@ from sklearn.metrics import mean_squared_error
 from prometheus_client import start_http_server, Gauge
 import time
 
+# Watchtower Testi için hemen başta print
+print("Watchtower Test: Yeni Versiyon Çalışıyor!")
+
 # 1. Modeli yükle
 model = lgb.Booster(model_file="retail_demand_model.txt")
 
@@ -23,7 +26,7 @@ rmse = np.sqrt(mse)
 output = pd.DataFrame({"Prediction": y_pred})
 output.to_csv("predictions.csv", index=False)
 
-print(f"Tahminler başarıyla 'predictions.csv' dosyasına kaydedildi. 🚀 (Güncellendi)")
+print(f"Tahminler başarıyla 'predictions.csv' dosyasına kaydedildi.")
 print(f"Test Seti RMSE: {rmse}")
 
 # 6. Prometheus için Metric başlat
@@ -38,7 +41,6 @@ if __name__ == "__main__":
     # Metric server başlat
     start_http_server(8000)  # localhost:8000 adresinde metrik yayınlanacak
     print("Prometheus metrics server 8000 portunda başladı.")
-
-    print("Bu yeni versiyon! Watchtower testi başarılı!")
     
+    # Sonsuz metrik güncellemesi
     update_metrics()
