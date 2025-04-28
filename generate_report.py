@@ -12,7 +12,8 @@ predictions = pd.read_csv("predictions.csv")
 y_true = pd.read_csv("y_test.csv").squeeze()
 
 # 2. RMSE hesapla
-rmse = mean_squared_error(y_true, predictions['Prediction'], squared=False)
+mse = mean_squared_error(y_true, predictions['Prediction'])
+rmse = mse ** 0.5
 
 # 3. Satış Dağılımı Grafiği
 plt.figure(figsize=(10,6))

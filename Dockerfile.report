@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y libgomp1
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY generate_report.py .
+COPY report_scheduler.py .
+COPY retail_sales.csv .
+COPY predictions.csv .
+COPY y_test.csv .
+COPY X_test.csv .
+
+CMD ["python", "report_scheduler.py"]
