@@ -1,27 +1,38 @@
-from flask import Flask, send_from_directory, render_template_string
+from flask import Flask, render_template_string
 import os
 
 app = Flask(__name__)
 
-REPORTS_FOLDER = "reports"
+@app.route("/")
+def list_reports():
+    reports_dir = "reports"
+    reports = []
 
-@app.route('/')
-def index():
-    files = os.listdir(REPORTS_FOLDER)
-    files = [f for f in files if f.endswith('.pdf')]
-    files.sort(reverse=True)  # En yeni rapor en üstte
-    return render_template_string("""
-        <h1>Raporlar </h1>
-        <ul>
-        {% for file in files %}
-            <li><a href="/download/{{ file }}">{{ file }}</a></li>
-        {% endfor %}
-        </ul>
-    """, files=files)
+    if os.path.exists(reports_dir):
+        reports = [f for f in os.listdir(reports_dir) if f.endswith(".pdf")]
 
-@app.route('/download/<path:filename>')
-def download(filename):
-    return send_from_directory(REPORTS_FOLDER, filename, as_attachment=True)
+    html = """
+    <html>
+        <head>
+            <title>Retail Demand Reports</title>
+        </head>
+        <body>
+            <h1>Reports</h1>
+            <ul>
+                {% for report in reports %}
+                    <li><a href="/reports/{{ report }}" target="_blank">{{ report }}</a></li>
+                {% endfor %}
+            </ul>
+        </body>
+    </html>
+    """
+
+    return render_template_string(html, reports=reports)
+
+@app.route("/reports/<path:filename>")
+def download_report(filename):
+    from flask import send_from_directory
+    return send_from_directory("reports", filename)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
