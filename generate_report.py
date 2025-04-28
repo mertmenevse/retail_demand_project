@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import lightgbm as lgb
@@ -18,7 +19,7 @@ model = lgb.Booster(model_file='retail_demand_model.txt')
 predictions = model.predict(X_test)
 
 # Performans metriğini hesapla
-rmse = mean_squared_error(y_test, predictions, squared=False)
+rmse = np.sqrt(mean_squared_error(y_test, predictions))
 
 # Grafik oluştur
 plt.figure(figsize=(10,6))
