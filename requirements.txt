@@ -5,3 +5,4 @@ numpy
 prometheus_client
 matplotlib
 fpdf
+flask
