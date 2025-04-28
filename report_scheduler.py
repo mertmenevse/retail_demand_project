@@ -1,15 +1,13 @@
 import time
-import subprocess
-from datetime import datetime
+import os
 
-def run_report():
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    print(f"{timestamp} - Yeni rapor oluşturuluyor...")
-    subprocess.run(["python", "generate_report.py"])
-    print(f"{timestamp} - Rapor başarıyla oluşturuldu.")
+while True:
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+    print(f"{timestamp} - Running live prediction...")
+    os.system("python predict.py")  # Önce yeni prediction alınacak
 
-if __name__ == "__main__":
-    while True:
-        run_report()
-        print("5 dakika bekleniyor...")
-        time.sleep(300)
+    print(f"{timestamp} - Generating new report...")
+    os.system("python generate_report.py")  # Sonra yeni rapor üretilecek
+
+    print("Waiting 5 minutes...\n")
+    time.sleep(300)  # 5 dakika bekle
